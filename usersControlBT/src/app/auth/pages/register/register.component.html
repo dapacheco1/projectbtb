@@ -4,19 +4,19 @@
     <legend>Personal data</legend>
     <div class="mb-3">
       <label for="name" class="form-label" >Name: </label>
-      <input type="text" class="form-control">
+      <input type="text"  name="name" class="form-control" [(ngModel)]="person.name">
     </div>
     <div class="mb-3">
       <label for="lastname" class="form-label">Last Name: </label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="lastname" [(ngModel)]="person.lastname">
     </div>
     <div class="mb-3">
       <label for="phone" class="form-label">Phone: </label>
-      <input type="tel" class="form-control">
+      <input type="tel" min="0" step="1" class="form-control" name="phone" [(ngModel)]="person.phone">
     </div>
     <div class="mb-3">
       <label for="direction" class="form-label">Direction: </label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="direction" [(ngModel)]="person.direction">
     </div>
   </fieldset>
 
@@ -26,23 +26,19 @@
     <legend>User data</legend>
     <div class="mb-3">
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" name="username" [(ngModel)]="user.username">
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password: </label>
-      <input type="password" class="form-control">
-    </div>
-    <div class="mb-3">
-      <label for="passwordConf" class="form-label">Confirm your password: </label>
-      <input type="passwordConf" class="form-control">
+      <input type="password" class="form-control" name="password" [(ngModel)]="user.password">
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email: </label>
-      <input type="email" class="form-control">
+      <input type="email" class="form-control" name="email" [(ngModel)]="user.email">
     </div>
     <div class="mb-3">
       <label for="rol" class="form-label">Rol: </label>
-      <select name="rol" class="form-select">
+      <select name="rol" class="form-select" [(ngModel)]="user.rol">
         <option value="">---</option>
         <option value="administrator">Administrator</option>
         <option value="finance">Finance</option>
@@ -54,6 +50,6 @@
     </div>
   </fieldset>
 
-  <button type="submit" class="btn btn-primary">Create User</button>
+  <button type="submit" class="btn btn-primary" (click)="validateData();">Create User</button>
   <button type="reset" class="btn btn-danger">Clear Form</button>
 </form>
