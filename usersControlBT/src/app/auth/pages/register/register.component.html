@@ -1,1 +1,59 @@
-<p>register works!</p>
+<form class="m-auto col-sm-8 col-md-6 col-lg-6">
+  <h1>Register form</h1>
+  <fieldset>
+    <legend>Personal data</legend>
+    <div class="mb-3">
+      <label for="name" class="form-label" >Name: </label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="lastname" class="form-label">Last Name: </label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone: </label>
+      <input type="tel" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="direction" class="form-label">Direction: </label>
+      <input type="text" class="form-control">
+    </div>
+  </fieldset>
+
+  <hr>
+
+  <fieldset>
+    <legend>User data</legend>
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password: </label>
+      <input type="password" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="passwordConf" class="form-label">Confirm your password: </label>
+      <input type="passwordConf" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email: </label>
+      <input type="email" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="rol" class="form-label">Rol: </label>
+      <select name="rol" class="form-select">
+        <option value="">---</option>
+        <option value="administrator">Administrator</option>
+        <option value="finance">Finance</option>
+        <option value="marketing">Marketing</option>
+        <option value="support">Support</option>
+        <option value="client">Cllient</option>
+        <option value="medical">Medical</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="btn btn-primary">Create User</button>
+  <button type="reset" class="btn btn-danger">Clear Form</button>
+</form>
