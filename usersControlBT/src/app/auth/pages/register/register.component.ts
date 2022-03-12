@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from 'src/app/services/users/users.service';
 import { Person } from '../../modules/person.module';
 import { User } from '../../modules/user.module';
 
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
     message:''
   };
 
-  constructor() {
+  constructor(private _userServices:UsersService) {
     this.initDataForm();
    }
 
@@ -58,6 +59,9 @@ export class RegisterComponent implements OnInit {
   validateClientData(){
     this.validatePersonFront();
     this.validateUserFront();
+    if(this.validationPerson.success && this.validationUser.success){
+      this.validatePersonBack();
+    }
   }
 
 
@@ -152,5 +156,40 @@ export class RegisterComponent implements OnInit {
     return word.replace(char,'');
   }
 
+  validatePersonBack(){
+    this._userServices.registerUser(this.user).subscribe(res=>{
+      this.validationUser.success = res.success;
+      this.validationUser.message = res.message;
+      if(res.success){
+        alert("User was created successfully");
+        this.clearForm();
+      }
+    });
+  }
+
+  clearForm(){
+    this.user = {
+      id:0,
+      idPerson:0,
+      rol:'',
+      username:'',
+      password:'',
+      email:'',
+      status:'A',
+      created_at:'',
+      updated_at:''
+    };
+
+    this.person = {
+      idPerson:0,
+      name:'',
+      lastname:'',
+      phone:'',
+      direction:'',
+      status:'A',
+      created_at:'',
+      updated_at:''
+    };
+  }
 
 }
