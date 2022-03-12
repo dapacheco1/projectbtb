@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
     this.validatePersonFront();
     this.validateUserFront();
     if(this.validationPerson.success && this.validationUser.success){
-      this.validatePersonBack();
+      this.validateUserBack();
     }
   }
 
@@ -156,7 +156,7 @@ export class RegisterComponent implements OnInit {
     return word.replace(char,'');
   }
 
-  validatePersonBack(){
+  validateUserBack(){
     this._userServices.registerUser(this.user).subscribe(res=>{
       this.validationUser.success = res.success;
       this.validationUser.message = res.message;
