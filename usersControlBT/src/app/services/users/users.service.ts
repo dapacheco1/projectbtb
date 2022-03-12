@@ -18,7 +18,7 @@ export class UsersService {
     return this._http.get<ResponseServer>(route);
   }
 
-  registerUser(user:User){
+  registerUser(user:any){
     const route = this.conn + 'users';
     return this._http.post<ResponseServer>(route,"data="+JSON.stringify(user),{
       headers: {

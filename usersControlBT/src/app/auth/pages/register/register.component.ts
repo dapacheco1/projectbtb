@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PersonsService } from 'src/app/services/persons/persons.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { Person } from '../../modules/person.module';
 import { User } from '../../modules/user.module';
@@ -23,7 +22,7 @@ export class RegisterComponent implements OnInit {
     message:''
   };
 
-  constructor(private _userServices:UsersService,private _personServices:PersonsService) {
+  constructor(private _userServices:UsersService) {
     this.initDataForm();
    }
 
@@ -61,7 +60,7 @@ export class RegisterComponent implements OnInit {
     this.validatePersonFront();
     this.validateUserFront();
     if(this.validationPerson.success && this.validationUser.success){
-      this.validatePersonBack();
+      this.validateUserBack();
     }
   }
 
@@ -84,26 +83,10 @@ export class RegisterComponent implements OnInit {
       this.validationPerson.message+= 'Invalid lastname, only admit letters,blank spaces between words. No admitted empty input';
     }
 
-    //validate phone number
-    if(!regexNum.test(this.trimData(this.person.phone))){
-      this.validationPerson.success=false;
-      this.validationPerson.message+= 'Invalid phone number, only admit numbers. No admitted empty input';
-    }
-
-    //validate direction
-    if(!regexDir.test(this.trimData(this.person.direction))){
-      this.validationPerson.success=false;
-      this.validationPerson.message+= ' Invalid direction, only admit letters,blank spaces,numbers between words. No admitted empty input';
-    }
-
     //in success case
     if(this.validationPerson.success){
       this.validationPerson.message = 'all data is correct';
     }
-
-
-    //validate message person
-    //console.log(validationPerson.message);
   }
 
   validateUserFront(){
@@ -158,28 +141,21 @@ export class RegisterComponent implements OnInit {
   }
 
   validateUserBack(){
-    this._userServices.registerUser(this.user).subscribe(res=>{
+    let us = {
+      user:this.user,
+      person:this.person
+    }
+    this._userServices.registerUser(us).subscribe(res=>{
       this.validationUser.success = res.success;
       this.validationUser.message = res.message;
       if(res.success){
         alert("Account was created successfully");
-        this.clearForm();
-      }else{
-        this._personServices.deletePerson(this.user.idPerson);
+        //this.clearForm();
       }
     });
   }
 
-  validatePersonBack(){
-    this._personServices.registerPerson(this.person).subscribe(res=>{
-      this.validationPerson.success = res.success;
-      this.validationPerson.message = res.message;
-      if(res.success){
-        this.user.idPerson = res.data.id;
-        this.validateUserBack();
-      }
-    });
-  }
+  
 
   clearForm(){
     this.user = {
