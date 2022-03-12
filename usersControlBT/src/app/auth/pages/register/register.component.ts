@@ -10,6 +10,16 @@ import { User } from '../../modules/user.module';
 export class RegisterComponent implements OnInit {
   public user !: User;
   public person !:Person;
+  //validate name
+  validationPerson = {
+    success:true,
+    message:''
+  };
+
+  validationUser = {
+    success:true,
+    message:''
+  };
 
   constructor() {
     this.initDataForm();
@@ -45,52 +55,100 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  validateData(){
+  validateClientData(){
+    this.validatePersonFront();
     this.validateUserFront();
   }
 
 
-  validateUserFront(){
+  validatePersonFront(){
     const regexTxt = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]+$/u;
     const regexDir = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð0-9 '-]+$/u;
-    const regexUsname = /^[A-Za-z0-9 ]+$/g;
     const regexNum = /^\d+$/;
 
-    //validate name
-    let validationPerson = {
-      success:true,
-      message:''
-    };
+    this.validationPerson.success=true;
+    this.validationPerson.message = '';
+
     if(!regexTxt.test(this.trimData(this.person.name))){
-      validationPerson.success=false;
-      validationPerson.message+= ' Invalid name, only admit letters,blank spaces between words. No admitted empty input';
+      this.validationPerson.success=false;
+      this.validationPerson.message+= 'Invalid name, only admit letters,blank spaces between words. No admitted empty input \n';
     }
     //validate last name
     if(!regexTxt.test(this.trimData(this.person.lastname))){
-      validationPerson.success=false;
-      validationPerson.message+= '->Invalid lastname, only admit letters,blank spaces between words. No admitted empty input';
+      this.validationPerson.success=false;
+      this.validationPerson.message+= 'Invalid lastname, only admit letters,blank spaces between words. No admitted empty input';
     }
 
     //validate phone number
     if(!regexNum.test(this.trimData(this.person.phone))){
-      validationPerson.success=false;
-      validationPerson.message+= '->Invalid phone number, only admit numbers. No admitted empty input';
+      this.validationPerson.success=false;
+      this.validationPerson.message+= 'Invalid phone number, only admit numbers. No admitted empty input';
     }
 
     //validate direction
     if(!regexDir.test(this.trimData(this.person.direction))){
-      validationPerson.success=false;
-      validationPerson.message+= '->Invalid direction, only admit letters,blank spaces,numbers between words. No admitted empty input';
+      this.validationPerson.success=false;
+      this.validationPerson.message+= ' Invalid direction, only admit letters,blank spaces,numbers between words. No admitted empty input';
     }
 
-    //validate
-    alert(validationPerson.message);
+    //in success case
+    if(this.validationPerson.success){
+      this.validationPerson.message = 'all data is correct';
+    }
+
+
+    //validate message person
+    //console.log(validationPerson.message);
+  }
+
+  validateUserFront(){
+    const regexUser = /^[A-Za-z0-9]+$/g;
+    const regexPass = /^[A-Za-z0-9-@.,]+$/g;
+    const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    this.validationUser.success=true;
+    this.validationUser.message = '';
+    //validate username
+    if(!regexUser.test(this.trimData(this.user.username))){
+      this.validationUser.success=false;
+      this.validationUser.message += 'Invalid username, only admit words and number. Empty input not admitted.';
+    }
+
+    //validate password
+    if(!regexPass.test(this.trimData(this.user.password))){
+      this.validationUser.success=false;
+      this.validationUser.message += '->Invalid password, only admit words.number and -@., .Empty input not admitted.';
+    }
+
+    //validate password length
+    if(this.user.password.length<8){
+      this.validationUser.success=false;
+      this.validationUser.message += '->Invalid password length. Minimum lenght: 8 characters';
+    }
+
+    //validate mail
+    if(!regexEmail.test(this.trimData(this.user.email))){
+      this.validationUser.success=false;
+      this.validationUser.message += '->Invalid email. Empty input not admitted.';
+    }
+
+    //validate rol
+    if(this.user.rol==''){
+      this.validationUser.success=false;
+      this.validationUser.message += '->Invalid rol. Empty input not admitted.';
+    }
+
+    //in success case
+    if(this.validationUser.success){
+      this.validationUser.message = 'all data is correct';
+    }
+
+
   }
 
   //function to trim blank spaces
   trimData(word:string){
     const char = /^\s+|\s+$/gm;
-    console.log(word.replace(char,''));
     return word.replace(char,'');
   }
 
