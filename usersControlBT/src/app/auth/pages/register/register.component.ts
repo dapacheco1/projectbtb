@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonsService } from 'src/app/services/persons/persons.service';
 import { UsersService } from 'src/app/services/users/users.service';
 import { Person } from '../../modules/person.module';
 import { User } from '../../modules/user.module';
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
     message:''
   };
 
-  constructor(private _userServices:UsersService) {
+  constructor(private _userServices:UsersService,private _personServices:PersonsService) {
     this.initDataForm();
    }
 
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
     };
 
     this.person = {
-      idPerson:0,
+      id:0,
       name:'',
       lastname:'',
       phone:'',
@@ -60,7 +61,7 @@ export class RegisterComponent implements OnInit {
     this.validatePersonFront();
     this.validateUserFront();
     if(this.validationPerson.success && this.validationUser.success){
-      this.validateUserBack();
+      this.validatePersonBack();
     }
   }
 
@@ -161,8 +162,21 @@ export class RegisterComponent implements OnInit {
       this.validationUser.success = res.success;
       this.validationUser.message = res.message;
       if(res.success){
-        alert("User was created successfully");
+        alert("Account was created successfully");
         this.clearForm();
+      }else{
+        this._personServices.deletePerson(this.user.idPerson);
+      }
+    });
+  }
+
+  validatePersonBack(){
+    this._personServices.registerPerson(this.person).subscribe(res=>{
+      this.validationPerson.success = res.success;
+      this.validationPerson.message = res.message;
+      if(res.success){
+        this.user.idPerson = res.data.id;
+        this.validateUserBack();
       }
     });
   }
@@ -181,7 +195,7 @@ export class RegisterComponent implements OnInit {
     };
 
     this.person = {
-      idPerson:0,
+      id:0,
       name:'',
       lastname:'',
       phone:'',

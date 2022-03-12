@@ -1,5 +1,5 @@
 export interface Person{
-  idPerson:number,
+  id:number,
   name:string,
   lastname:string,
   phone:string,
