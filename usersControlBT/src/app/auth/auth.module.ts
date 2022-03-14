@@ -6,6 +6,7 @@ import { BaseLoginComponent } from './base-login/base-login.component';
 import { HeaderAuthComponent } from './components/header-auth/header-auth.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
+import { CrudComponent } from './pages/crud/crud/crud.component';
 
 
 
@@ -14,7 +15,8 @@ import { LoginComponent } from './pages/login/login.component';
     BaseLoginComponent,
     HeaderAuthComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    CrudComponent
   ],
   imports: [
     CommonModule,

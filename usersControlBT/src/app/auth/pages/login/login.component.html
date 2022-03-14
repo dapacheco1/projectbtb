@@ -3,11 +3,11 @@
   <h1>Login</h1>
   <div class="mb-3">
     <label for="username" class="form-label">Username: </label>
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" name="username" [(ngModel)]="user.username">
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control">
+    <input type="password" class="form-control" name="password" [(ngModel)]="user.password">
   </div>
-  <button type="submit" class="btn btn-primary">Login</button>
+  <button type="submit" class="btn btn-primary" (click)="verifyLogin();">Login</button>
 </form>

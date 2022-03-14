@@ -8,6 +8,7 @@ import { User } from 'src/app/auth/modules/user.module';
 })
 export class UsersService {
   public conn:string;
+  public state:any;
 
   constructor(private _http:HttpClient) {
     this.conn = environment.url;
@@ -26,4 +27,21 @@ export class UsersService {
       }
     });
   }
+
+
+  validateLoginUs(user:any){
+    const route = this.conn + 'users/validate';
+    // return this._http.post<ResponseServer>(route,"data="+JSON.stringify(user),{
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   }
+    // });
+    return this._http.post<ResponseServer>(route, user);
+  }
+
+  getLoginStatusValidation(){
+    return this.state;
+  }
+
+  
 }
