@@ -16,7 +16,7 @@ export class LogoutGuard implements CanActivate {
       const user = (localStorage.getItem('user'));
 
       if(user){
-        this.router.navigateByUrl('/auth/crud');
+        this.router.navigateByUrl('/crud');
         return false;
       }else{
         
