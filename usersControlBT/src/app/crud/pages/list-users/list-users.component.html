@@ -1,1 +1,35 @@
-<p>list-users works!</p>
+<app-modal-user></app-modal-user>
+<app-modal-edit></app-modal-edit>
+<app-modal-delete></app-modal-delete>
+<app-modal-see></app-modal-see>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">username</th>
+        <th scope="col">email</th>
+        <th scope="col">Last update</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.updated_at}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" [value]="user.id" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                    <i class="fa-solid fa-pencil"></i>
+                </button>
+                <button type="button" class="btn btn-primary" [value]="user.id" data-bs-toggle="modal" data-bs-target="#modalDelete">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                <button type="button" class="btn btn-primary" [value]="user.idPerson" data-bs-toggle="modal" data-bs-target="#modalSee">
+                    <i class="fa-solid fa-eye"></i> 
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
