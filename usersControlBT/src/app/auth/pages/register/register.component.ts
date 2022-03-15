@@ -150,7 +150,7 @@ export class RegisterComponent implements OnInit {
       this.validationUser.message = res.message;
       if(res.success){
         alert("Account was created successfully");
-        //this.clearForm();
+        this.clearForm();
       }
     });
   }

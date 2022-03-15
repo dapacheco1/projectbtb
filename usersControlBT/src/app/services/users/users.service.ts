@@ -43,5 +43,10 @@ export class UsersService {
     return this.state;
   }
 
+  deleteUserById(id:number){
+    const route = this.conn + 'users/'+id;
+    return this._http.delete<ResponseServer>(route);
+  }
+
   
 }
