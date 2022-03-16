@@ -48,5 +48,13 @@ export class UsersService {
     return this._http.delete<ResponseServer>(route);
   }
 
+  updateUser(data: any){
+    const route = this.conn + 'users/';
+    return this._http.put<ResponseServer>(route, data);
+  }
   
+  find(id: number, estado: string){
+    const route = this.conn + 'users/'+id+'/'+estado;
+    return this._http.get<ResponseServer>(route);
+  }
 }

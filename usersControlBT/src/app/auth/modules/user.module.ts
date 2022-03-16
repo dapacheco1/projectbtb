@@ -1,3 +1,5 @@
+import { Person } from "./person.module"
+
 export interface User{
   id:number,
   idPerson:number,
@@ -7,5 +9,6 @@ export interface User{
   email:string,
   status:string,
   created_at:string,
-  updated_at:string
+  updated_at:string,
+  person?: Person
 }
