@@ -5,7 +5,7 @@ import { CrudRoutingModule } from './crud-routing.module';
 import { ListUsersComponent } from './pages/list-users/list-users.component';
 import { BaseCrudComponent } from './base-crud/base-crud.component';
 import { HeaderCrudComponent } from './components/header-crud/header-crud.component';
-
+import { FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import { HeaderCrudComponent } from './components/header-crud/header-crud.compon
   ],
   imports: [
     CommonModule,
-    CrudRoutingModule
+    CrudRoutingModule,
+    FormsModule
   ]
 })
 export class CrudModule { }

@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
     this._authService.validateLoginUs(this.user).subscribe(res=>{
       if(res.success){
         localStorage.setItem('user',JSON.stringify(res.data));
-        this.router.navigateByUrl('/crud');
+
       }
       alert(res.message);
     });
