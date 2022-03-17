@@ -4,6 +4,7 @@ import { Person } from 'src/app/auth/modules/person.module';
 import { User } from 'src/app/auth/modules/user.module';
 import { UsersService } from 'src/app/services/users/users.service';
 
+
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
@@ -25,11 +26,15 @@ export class ListUsersComponent implements OnInit {
   private auxEdit:number=0;
   private auxLogicId:number=0;
 
+  public auxFilter!:User[];
+
   public userI!:User;
   public personI!:Person;
 
   public userEd!:User;
   public personEd!:Person;
+
+  public filterusers:string='';
   //validate name
   validationPerson = {
     success:true,
@@ -351,6 +356,7 @@ export class ListUsersComponent implements OnInit {
     this._userServices.getAllUsers().subscribe(res=>{
       if(res.success){
         this.users = res.data;
+        
         this.users.forEach((item:any)=>this.prs.push(item.person));
       }
     });
@@ -435,6 +441,11 @@ export class ListUsersComponent implements OnInit {
 
   }
 
+  filter(event:any){
+    this.filterusers = event;
+  }
+
+ 
 
 
 

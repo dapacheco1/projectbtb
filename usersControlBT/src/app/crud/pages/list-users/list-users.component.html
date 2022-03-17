@@ -1,8 +1,3 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add User
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -78,7 +73,6 @@
             </div>
           </fieldset>
 
-
           <!-- error -->
           <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="!validationUser.success">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
@@ -129,10 +123,10 @@
                 </div>
                 <div class="mb-3">
                   <label for="phone" class="form-label">Phone: </label>
-                  <input type="tel" min="0" step="1" class="form-control" name="phone" [(ngModel)]="personEd.phone" >
+                  <input type="tel" min="0" step="1" class="form-control" name="phone" [(ngModel)]="personEd.phone">
                 </div>
               </fieldset>
-  
+
               <!-- error -->
               <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="!validationPerson.success ">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
@@ -173,7 +167,7 @@
                   </select>
                 </div>
               </fieldset>
-      
+
               <!-- error -->
               <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="!validationUser.success">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
@@ -226,61 +220,88 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="#seeData" *ngIf="seeUs!=null">
-        <p>Name: {{seePr.name}}</p>
-        <p>Lastname: {{seePr.lastname}}</p>
-        <p>Phone: {{seePr.phone}}</p>
-        <p>Direction: {{seePr.direction}}</p>
-        <p>Created at: {{seePr.created_at}}</p>
-        <p>Last update: {{seePr.updated_at}}</p>
-        <hr>
-        <p>Username: {{seeUs.username}}</p>
-        <p>Rol: {{seeUs.rol}}</p>
-        <p>Email: {{seeUs.email}}</p>
-        <p>Status: {{seeUs.status}}</p>
-        <p>Created at: {{seeUs.created_at}}</p>
-        <p>Last update: {{seeUs.updated_at}}</p>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <p>Name: {{seePr.name}}</p>
+              <p>Lastname: {{seePr.lastname}}</p>
+              <p>Phone: {{seePr.phone}}</p>
+              <p>Direction: {{seePr.direction}}</p>
+              <p>Created at: {{seePr.created_at}}</p>
+              <p>Last update: {{seePr.updated_at}}</p>
+            </div>
+            <div class="col-12 col-md-6">
+              <p>Username: {{seeUs.username}}</p>
+              <p>Rol: {{seeUs.rol}}</p>
+              <p>Email: {{seeUs.email}}</p>
+              <p>Status: {{seeUs.status}}</p>
+              <p>Created at: {{seeUs.created_at}}</p>
+              <p>Last update: {{seeUs.updated_at}}</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">username</th>
-      <th scope="col">email</th>
-      <th scope="col">Last update</th>
-      <th scope="col">Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users;let i=index">
-      <td>{{i + 1}}</td>
-      <td>{{user.username}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.updated_at}}</td>
-      <td>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit"
-          (click)="edit(user.id);">
-          <i class="fa-solid fa-pencil"></i>
-        </button>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-6 col-md-4 col-lg-2">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add User
+      </button>
+    </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDelete"
-          (click)="deleteUser(i,user.id);">
-          <i class="fa-solid fa-trash"></i>
-        </button>
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="form-group">
+        <app-filter (filt)="filter($event);"></app-filter>
+      </div>
+    </div>
+  </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSee"
-          (click)="seeMore(user.idPerson)">
-          <i class="fa-solid fa-eye"></i>
-        </button>
+  <div class="row mt-3">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">Last update</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users | filter: filterusers;let i=index">
+            <td>{{i + 1}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.updated_at}}</td>
+            <td>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                (click)="edit(user.id);">
+                <i class="fa-solid fa-pencil"></i>
+              </button>
 
-      </td>
-    </tr>
-  </tbody>
-</table>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDelete"
+                (click)="deleteUser(i,user.id);">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSee"
+                (click)="seeMore(user.idPerson)">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
