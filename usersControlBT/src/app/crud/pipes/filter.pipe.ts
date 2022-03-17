@@ -10,7 +10,9 @@ export class FilterPipe implements PipeTransform {
         return items;
     }
     
-    return items.filter(item => item.username == filter);
+    return items.filter((item:any) => {
+      return item.username.toLocaleLowerCase().includes(filter);
+    });
 }
 
 }
